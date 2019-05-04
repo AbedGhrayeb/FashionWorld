@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>Fashion World</title>
+
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <environment include="Development">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+
+        <!-- Bootstrap  -->
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <!-- Theme Style -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/responsive.css">
+
+        <!-- Colors -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/colors/color1.css" id="colors">
+
+        <!-- Animation Style -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/animate.css">
+        <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+
+        <!-- Favicon and touch icons  -->
+        <link href="~/icon/favicon.png" rel="shortcut icon">
+
+        <!--[if lt IE 9]>
+        <script src="~/javascript/html5shiv.js"></script>
+        <script src="~/javascript/respond.min.js"></script>
+    <![endif]-->
+    </environment>
+    <environment exclude="Development">
+
+
+        <!-- Bootstrap  -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
+        <!-- Theme Style -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/style.css">
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/responsive.css">
+
+        <!-- Colors -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/colors/color1.css" id="colors">
+
+        <!-- Animation Style -->
+        <link rel="stylesheet" type="text/css" href="~/stylesheets/animate.css">
+
+        <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+
+        <!-- Favicon and touch icons  -->
+        <link href="~/icon/favicon.png" rel="shortcut icon">
+
+        <!--[if lt IE 9]>
+        <script src="~/javascript/html5shiv.js"></script>
+        <script src="~/javascript/respond.min.js"></script>
+    <![endif]-->
+
+    </environment>
+</head>
+<body class="header_sticky header-style-1 has-menu-extra">
+    <!-- Preloader -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Boxed -->
+    <div class="boxed">
+        <div id="site-header-wrap">
+            <!-- Header -->
+            <header id="header" class="header header-container clearfix mx-0">
+                <div class="container clearfix" id="site-header-inner">
+                    <div id="logo" class="logo float-left">
+                        <a asp-action="Index" asp-controller="Home" title="logo">
+                            <img asp-append-version="true" src="~/images/logo.png" alt="image" width="107" height="24" data-retina="~/images/logo.png" data-width="107" data-height="24">
+                        </a>
+                    </div><!-- /.logo -->
+                    <div class="mobile-button"><span></span></div>
+                    <ul class="menu-extra">
+                        <li class="box-search">
+                            <a class="icon_search header-search-icon" href="#"></a>
+                            <form role="search" method="post" class="header-search-form" asp-action="Search" asp-controller="Home">
+                                <input id="search" name="search" class="header-search-field" placeholder="Search...">
+                                <button type="submit" class="header-search-submit" title="Search" value="search">Search</button>
+                            </form>
+                        </li>
+                        <li class="box-login">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <a class="icon_login" id="user" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Page("/", new { area = "" })"></a>
+                            }
+                           
+                            
+                        </li>
+                        <li class="box-cart nav-top-cart-wrapper">
+                            @await Component.InvokeAsync("CartSummary")
+
+                        </li>
+                    </ul><!-- /.menu-extra -->
+                    
+                    <div class="nav-wrap">
+                        <nav id="mainnav" class="mainnav">
+                            <ul class="menu text-uppercase">
+
+                                <li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole("Admins"))
+                                        {
+                                            <a asp-action="Welcome" asp-controller="Admin">Dashboard</a>
+                                        }
+                                        else if (User.IsInRole("Market Owner"))
+                                        {
+                                            <a asp-action="Welcome" asp-controller="Admin">Dashboard</a>
+                                        }
+                                        else if (User.IsInRole("Customer"))
+                                        {
+                                            <a asp-action="Welcome" asp-controller="Admin">Dashboard</a>
+                                        }
+                                        else
+                                        {
+                                            <partial name="_LoginPartial" />
+                                        }
+                                    }
+
+                                </li>
+                                <li class="active">
+                                    <a asp-action="Index" asp-controller="Home">HOME</a>
+                                </li>
+                                          @await Component.InvokeAsync("NavigationMenu")
+
+                                <li>
+                                    <a asp-action="Contact" asp-controller="Home">Contact Us</a>
+                                </li>
+                            </ul>
+
+
+
+
+                        </nav><!-- /.mainnav -->
+                    </div><!-- /.nav-wrap -->
+                </div><!-- /.container-fluid -->
+            </header><!-- /header -->
+        </div><!-- /#site-header-wrap -->
+        <!-- END NEW LATEST -->
+
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success text-center">@TempData["message"]</div>
+        }
+        <partial name="_CookieConsentPartial" />
+
+        <div class="boxed container-fluid mx-2 mt-4">
+            
+            @RenderBody()
+        </div>
+
+        <section class="flat-row mail-chimp m-auto">
+
+            <div class="main_product">
+                <div class="head_title text-center fix">
+                    <img asp-append-version="true" class="img-responsive my-2" src="~/images/ic.PNG">
+                    <h2 class="display-4"><a asp-action="Help" asp-controller="Home">Need help &#63;</a> </h2>
+                    <hr>
+                    <p> contact our customer support that is always ready to help you with any possible question ,problem or information  </p>
+                    <h3> <a href="#">support&#64;fashionworld.com</a></h3>
+
+                </div>
+            </div>
+
+        </section><!-- /.mail-chimp -->
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget widget-link">
+                            <h3 class="font-weight-bold">Sections</h3>
+                            <ul>
+                                <li><a asp-action="Index" asp-controller="Cart">Shopping</a></li>
+                                <li><a a asp-action="List" asp-controller="Home">All Products</a></li>
+                                <li><a href="~/blog-list.html">Blog</a></li>
+                                <li><a a asp-action="Contact" asp-controller="Home">Contact Us</a></li>
+                            </ul>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget widget-link link-faq">
+                            <h3 class="font-weight-bold">Helpful Links</h3>
+                            <ul>
+                                <li><a href="~/faqs.html">About Us</a></li>
+                                <li><a href="~/#">Delvery and Return Policy</a></li>
+                                <li><a href="~/#">Help</a></li>
+                                <li><a href="~/#">Service for Profissionals</a></li>
+                            </ul>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget widget-link link-login">
+                            <h3 class="font-weight-bold">Contact Info</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Oxford (UK)</h4>
+                                    <ul>
+                                        <li>1-3 abbey</li>
+                                        <li>ayncham</li>
+                                        <li>Oxford</li>
+                                        <li>OX29 4TB</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Oxford (UK)</h4>
+                                    <ul>
+                                        <li>1-3 abbey</li>
+                                        <li>ayncham</li>
+                                        <li>Oxford</li>
+                                        <li>OX29 4TB</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget widget-brand">
+                            <div class="logo logo-footer">
+                                <a asp-action="Index" asp-controller="Home"><img asp-append-version="true" src="~/images/logo.png" alt="image" width="107" height="24"></a>
+                            </div>
+                            <ul class="flat-social">
+                                <li><a href="~/#"><i class="fab fa-facebook"></i></a></li>
+                                <li><a href="~/#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="~/#"><i class="fab fa-google"></i></a></li>
+                                <li><a href="~/#"><i class="fab fa-behance"></i></a></li>
+                                <li><a href="~/#"><i class="fab fa-linkedin"></i></a></li>
+                            </ul><!-- /.flat-social -->
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </footer><!-- /.footer -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="copyright text-center">
+                            &copy; @DateTime.Now.Year - Fashion World - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Go Top -->
+        <a class="go-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+
+    </div>
+
+    <!-- Javascript -->
+    <script src="~/javascript/jquery.min.js"></script>
+    <script src="~/javascript/popper.min.js"></script>
+    <script src="~/javascript/tether.min.js"></script>
+    <script src="~/javascript/bootstrap.min.js"></script>
+    <script src="~/javascript/jquery.easing.js"></script>
+    <script src="~/javascript/parallax.js"></script>
+    <script src="~/javascript/jquery-waypoints.js"></script>
+    <script src="~/javascript/jquery-countTo.js"></script>
+    <script src="~/javascript/jquery.countdown.js"></script>
+    <script src="~/javascript/jquery.flexslider-min.js"></script>
+    <script src="~/javascript/images-loaded.js"></script>
+    <script src="~/javascript/jquery.isotope.min.js"></script>
+    <script src="~/javascript/magnific.popup.min.js"></script>
+    <script src="~/javascript/jquery.hoverdir.js"></script>
+    <script src="~/javascript/owl.carousel.min.js"></script>
+    <script src="~/javascript/equalize.min.js"></script>
+    <script src="~/javascript/gmap3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    <script src="~/javascript/jquery-ui.js"></script>
+
+    <script src="~/javascript/jquery.cookie.js"></script>
+    <script src="~/javascript/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script src="~/rev-slider/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/javascript/rev-slider.js"></script>
+    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
+    <script src="~/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>                               

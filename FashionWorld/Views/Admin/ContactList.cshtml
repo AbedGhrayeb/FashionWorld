@@ -1,0 +1,56 @@
+@model IEnumerable<Contact>
+
+@{
+    ViewData["Title"] = "Contacts Message";
+
+    if (User.Identity.IsAuthenticated)
+    {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    }
+
+<h1>Contacts Message List</h1>
+
+
+<table class="table my-2">
+    <thead class="bg-info text-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supject)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supject)
+                </td>
+
+
+
+                <td>
+                    <a asp-action="ContactDetails" asp-route-id="@item.ID" class="btn btn-success">Details</a>
+                    <a asp-action="DeleteContactMessage" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

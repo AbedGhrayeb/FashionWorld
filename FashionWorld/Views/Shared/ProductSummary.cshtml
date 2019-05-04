@@ -1,0 +1,68 @@
+﻿@model Product
+<div class="m-1 m-r-1 clearfix">
+<div class="product-thumb clearfix">
+    <a asp-action="ProductDetails" asp-controller="Home"
+       asp-route-id="@Model.ProductID" class="product-thumb">
+        <img asp-append-version="true" src="~/images/products/@Model.ImageUrl"
+             alt="image" class="img-fluid" width="345" height="370">
+    </a>
+    @{
+        TimeSpan ts = @Model.DateAdded - DateTime.Now.AddDays(-30);
+        if (ts.Days > 0 && ts.Days <= 30)
+        {
+            <span class="new">New</span>
+        }
+    }
+
+</div>
+<div class="product-info text-center clearfix my-1">
+    <span class="product-title">@Model.Name</span>
+    <hr />
+    <div class="price">
+        <div class="badge badge-pill badge-warning p-2">
+            @if (Model.Discount > 0)
+            {
+                <ins>save @Model.Discount % </ins>
+                <del class="text-secondary font-weight-300">@Model.Price.ToString("c")</del>
+                <ins class="badge badge-pill badge-info text-truncat">
+                    @Model.SalePrice.ToString("c")
+                </ins>
+            }
+            else
+            {
+                <ins>
+                    <span class="amount">@Model.Price</span>
+                </ins>
+            }
+
+        </div>
+    </div>
+</div>
+
+<p class="lead text-capitalize text-muted">
+    More Item From:
+    <a asp-action="MarketProducts" asp-Controller="Home"
+       asp-route-id="@Model.MarketId">
+        <span class="badge badge-secondary p-2">
+            @Model.Market.MarketName
+        </span>
+    </a>
+</p>
+
+<hr />
+<div class="add-to-cart text-center">
+    <form id="@Model.ProductID" asp-action="AddToCart"
+          asp-controller="Cart" method="post">
+        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" name="returnUrl"
+               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="card-text p-1">
+            <button type="submit">
+                Add To Cart  <i class="fas fa-cart-plus"></i>
+            </button>
+        </span>
+    </form>
+</div>
+<a asp-action="Add" asp-controller="Favorits" class="like"><i class="fas fa-heart fa-2x"></i></a>
+
+    </div>

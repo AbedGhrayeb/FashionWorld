@@ -1,0 +1,57 @@
+﻿@model ProductListVM
+@{
+    ViewData["Title"] = "List";
+}
+
+<form method="post" asp-action="Search" asp-controller="Home" role="search">
+    <div class="row input-group">
+
+        <input id="search" name="search" class="col-md-4 form-control"
+               placeholder="Search: Product Market Category Section Price">
+        <div class="col-md-4 input-group">
+            <select asp-for="CurrentSection" asp-items="Model.Section" class="form-control">
+                <option value="">Select Section</option>
+            </select>
+        </div>
+        <div class="col-md-4 input-group-btn">
+            <button type="submit" class="btn btn-block" value="search">Search</button>
+        </div>
+    </div>
+</form>
+
+
+<section class="flat-row row-product-new">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 m-auto">
+                <div class="title-section ">
+                    <h2 class="title"></h2>
+                </div>
+                <div class="product-content product-fourcolumn clearfix">
+                    <ul class="product style2 clearfix justify-content-center list-inline d-flex justify-content-center">
+
+                        @foreach (Product p in Model.Products)
+                        {
+                            <li class="product-item mx-1 bg-light">
+
+                                <partial name="ProductSummary" model="p" />
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+    <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-danger"
+         page-class-selected="btn-primary"
+         page-url-category="@Model.CurrentCategory"
+         class="btn-group pull-right m-1">
+    </div>
+
+
+
+
+
+

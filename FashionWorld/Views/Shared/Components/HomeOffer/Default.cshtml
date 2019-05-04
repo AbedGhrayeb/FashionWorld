@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Product>
+
+
+
+@foreach (Product p in Model)
+{
+
+    <div class="item data-effect-item">
+        <div class="inner">
+            <div class="thumb">
+                <img asp-append-version="true" src="~/images/products/@p.ImageUrl" width="370" height="270" alt="Image">
+                <div class="elm-btn">
+                    <a asp-action="ProductDetails" asp-controller="Home" class="themesflat-button bg-secondary width-150">@p.Name</a>
+                    <div class="badge badge-pill badge-warning p-3 mt-5">
+                       
+                            <ins>save @p.Discount % </ins>
+                            <del class="text-secondary font-weight-300">@p.Price.ToString("c")</del>
+                            <ins class="badge badge-pill badge-info text-truncat">
+                                @p.SalePrice.ToString("c")
+                            </ins>
+                       </div>
+                    </div>
+                    
+                    <div class="overlay-effect bg-color-2"></div>
+                </div>
+            </div>
+    </div>
+
+}

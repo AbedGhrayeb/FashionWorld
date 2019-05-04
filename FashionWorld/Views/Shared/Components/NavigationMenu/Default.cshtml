@@ -1,0 +1,20 @@
+﻿@model IEnumerable<string>
+
+
+
+@foreach (string category in Model)
+{
+   
+<li class="">
+        <a
+         (category = ViewBag.SelectedCategory)
+           asp-action="List"
+           asp-controller="Home"
+           asp-route-category="@category"
+           asp-route-productPage="1">
+            @category
+        </a>
+       </li>
+        }
+
+   

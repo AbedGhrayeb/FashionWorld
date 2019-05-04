@@ -1,0 +1,78 @@
+﻿@model FashionWorld.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }
+    }
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateAdded)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InStock)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InStock)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Market.MarketName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Market.MarketName)
+        </dd>
+
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

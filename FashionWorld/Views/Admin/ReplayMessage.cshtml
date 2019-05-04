@@ -1,0 +1,55 @@
+﻿@model Contact
+@using MimeKit;
+
+@{ 
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ReplayMessage</title>
+</head>
+<body>
+
+<form asp-action="ReplayMessag" method="post">
+
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <input asp-for="@Model.Name" class="form-control" placeholder=" name" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Email"></label>
+
+        <input type="email" asp-for="@Model.Email" class="form-control" placeholder="example@example.com" />
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Supject"></label>
+
+        <input asp-for="@Model.Supject" class="form-control" placeholder="supject" />
+        <span asp-validation-for="@Model.Supject" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Supject"></label>
+
+        <textarea asp-for="@Model.Message" class="form-control" placeholder="Message" rows="3" required="" data-error="Please, write us a message."></textarea>
+        <span asp-validation-for="@Model.Message" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-secondary btn-md form-control" value="Send">
+    </div>
+
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>

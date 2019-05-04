@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Favorite>
+
+
+@{
+    ViewData["Title"] = "Index";
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+        }
+    }
+}
+
+<div class="col text-center mb-3">
+    <h1 class="text-finence display-3">Favorite Products List</h1>
+</div>
+<div class="row bg-light">
+
+    @foreach (var p in Model)
+    {
+        <div class="col-lg-4 col-sm-10 mx-auto mb-4">
+            <div class="card">
+                <img src="~/images/products/@p.Product.ImageUrl" asp-append-version="true" class="card-img-top img-fluid">
+                <div class="card-body text-center">
+                    <div class="card-title">
+                        <h3 class="text-muted text-capitalize">@p.Product.Name</h3>
+                    </div>
+                    <hr />
+                    <div class="card-subtitle">
+                        <h4>Price: <span class="badge badge-info text-truncat"> @p.Product.Price.ToString("c")</span></h4>
+
+
+</div>
+                    <hr />
+                    <div>
+                        <a asp-action="Remove" asp-controller="Favorits" asp-route-id="@p.ID"
+                           class="badge badge-danger text-truncat p-2 mr-1">Un Favorite</a>
+                   
+                        <a asp-action="ProductDetails" asp-controller="Home" asp-route-id="@p.ProductId"
+                           class="badge badge-warning text-truncat p-2">Detailes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+</div>

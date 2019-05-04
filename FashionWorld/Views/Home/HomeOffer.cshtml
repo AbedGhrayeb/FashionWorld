@@ -1,0 +1,68 @@
+﻿@model Product
+
+
+
+
+<div class="col-lg-4 col-sm-10 mx-auto mb-4">
+    <div class="card bg-transparent">
+        <div>
+            <img asp-append-version="true" src="~/images/products/@Model.ImageUrl"
+                 class="img-card-top img-thumbnail p-1 clearfix" width="350" height="400">
+
+
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <a asp-action="ProductDetails" asp-controller="Home" asp-route-id="@Model.ProductID" class="col-form-label">
+                    <h3 class="text-dark text-capitalize text-center bg-faded p-1">@Model</h3>
+                </a>
+
+            </div>
+            <div class="card-subtitle">
+                <p class="lead text-capitalize text-muted">
+                    More Item From:   <a asp-action="MarketProducts" asp-Controller="Home"
+                                         asp-route-id="@Model">
+                        <span class="badge badge-danger p-2">
+                            @Model
+                        </span>
+                    </a>
+                </p>
+            </div>
+            <hr />
+            <div class="badge badge-pill badge-warning p-2" style="float:left">
+                @if (Model.Discount > 0)
+                {
+                <h6>save @Model.Discount %</h6>
+                <del class="text-dark  badge badge-light">@Model.Price.ToString("c")</del>  <span class="badge badge-danger text-truncat"> @Model.SalePrice.ToString("c")</span>
+
+
+                }
+                else
+                {
+
+                <span>
+                    <strong>@Model.Price.ToString("c")</strong>
+                </span>
+                }
+
+            </div>
+
+            <div class="text-right">
+
+                <form id="@Model.ProductID" asp-action="AddToCart"
+                      asp-controller="Cart" method="post">
+                    <input type="hidden" asp-for="@Model.ProductID" />
+                    <input type="hidden" name="returnUrl"
+                           value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <span class="card-text p-1">
+                        <button type="submit"
+                                class="btn btn-success btn-sm pull-right " style="float:right">
+                            Add To Cart
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

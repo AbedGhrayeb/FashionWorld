@@ -1,0 +1,72 @@
+﻿@model IEnumerable<FashionWorld.Models.Market>
+
+@{
+    ViewData["Title"] = "Markets";
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }
+    }
+}
+
+<h1 class="text-center">Markets</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table mt-2">
+    <thead class="bg-info text-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MarketName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripshion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarketOwner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarketAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FBUrl)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarketName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripshion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarketOwner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarketAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FBUrl)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MarketID" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MarketID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

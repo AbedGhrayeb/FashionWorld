@@ -1,0 +1,7 @@
+﻿@model FashionWorld.Models.ViewModels.ProductListVM
+
+@foreach (var p in Model.Products)
+{
+    <partial name="ProductSummary" model="p" />
+    
+}

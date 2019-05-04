@@ -1,0 +1,68 @@
+﻿@model FashionWorld.Models.Market
+
+@{
+    ViewData["Title"] = "Edit Market";
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }
+    }
+}
+
+
+<h1>Edit</h1>
+
+<h4>Market</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MarketID" />
+            <div class="form-group">
+                <label asp-for="MarketName" class="control-label"></label>
+                <input asp-for="MarketName" class="form-control" />
+                <span asp-validation-for="MarketName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripshion" class="control-label"></label>
+                <input asp-for="Descripshion" class="form-control" />
+                <span asp-validation-for="Descripshion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MarketOwner" class="control-label"></label>
+                <input asp-for="MarketOwner" class="form-control" />
+                <span asp-validation-for="MarketOwner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MarketAddress" class="control-label"></label>
+                <input asp-for="MarketAddress" class="form-control" />
+                <span asp-validation-for="MarketAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FBUrl" class="control-label"></label>
+                <input asp-for="FBUrl" class="form-control" />
+                <span asp-validation-for="FBUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products";
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }
+     }
+
+
+    }
+
+    <h1 class="text-center">Products</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+    <table class="table mt-2">
+        <thead class="bg-info text-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SalePrice)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Market.MarketName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SalePrice)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Market.MarketName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+
+                        <img asp-append-version="true" class="img-thumbnail" width="100" height="100"
+                             src="~/images/products/@item.ImageUrl" style="padding:5px;" />
+
+
+
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ProductID" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

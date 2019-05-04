@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Admin - Welcome";
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admins"))
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else if (User.IsInRole("Market Owner"))
+        {
+            Layout = "~/Views/Shared/_MarketOwnerLayout.cshtml";
+        }else if (User.IsInRole("Customer"))
+        {
+            Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+        }
+    }}
+
+<h1 class="text-secondary text-center my-5">Welcome to Your Dashboard Area</h1>
+<p class="lead text-capitalize text-center  mt-5 p-10">Easy to use dashboard and manage your Acount</p>
+
